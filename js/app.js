@@ -34,6 +34,28 @@ let dogs = [
 
 
 /* ======= View ======= */
+// Set the initial dog
+let showingDog = dogs[0];
+
+let name = document.querySelector('#dogName');
+let image = document.querySelector('img');
+let count = document.querySelector('.count');
+
+// update the DOM elements with showing dog
+function render() {
+    name.textContent = showingDog.name;
+    image.src = showingDog.imgSrc;
+    count.textContent = `Count: ${showingDog.clickCount}`;
+}
+
+image.addEventListener('click', function() {
+    // increments the counter for the showing dog
+    showingDog.clickCount ++;
+    render();
+});
+
+render();
+
 // Create a list of several dogs
 const dogList = document.querySelector('.list');
 
@@ -42,22 +64,12 @@ for (const dog of dogs) {
     let listItem = document.createElement('li');
     listItem.textContent = dog.name;
 
+    // Whem listItem got clicked, switch the showing dog
+    listItem.addEventListener('click', function() {
+        showingDog = dog;
+        render();
+    });
+
     // append each item to the list
     dogList.appendChild(listItem);
 }
-
-// Set the initial dog
-let showingDog = dogs[0];
-
-let name = document.querySelector('#dogName');
-let image = document.querySelector('img');
-let count = document.querySelector('.count');
-
-name.textContent = showingDog.name;
-image.src = showingDog.imgSrc;
-count.textContent = `Count: ${showingDog.clickCount}`;
-
-image.addEventListener('click', function() {
-    showingDog.clickCount += 1;
-    count.textContent = `Count: ${showingDog.clickCount}`;
-});
